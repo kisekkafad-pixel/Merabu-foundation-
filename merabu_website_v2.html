@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Merabu Foundation — Growing older should never mean becoming invisible</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+:root{--m-forest:#174A3A;--m-forest-dark:#0f3528;--m-forest-light:#1e5d4a;--m-terracotta:#B85C38;--m-terracotta-dark:#9a4a2b;--m-gold:#C9A24A;--m-gold-light:#d4ad55;--m-ivory:#F7F2E8;--m-ivory-dark:#ede6d8;--m-charcoal:#252525;--m-charcoal-light:#3a3a3a;--m-sage:#8FAF9A;--m-sage-dark:#6e8f7a;--m-sand:#DCCDB5;--m-sand-light:#e8dcc8;--m-white:#ffffff;--m-text:#252525;--m-text-secondary:#555555;--m-text-muted:#888888;--m-border:#e0d8c8;--m-border-light:#ede6d8;--m-shadow:rgba(23,74,58,0.06);--m-shadow-hover:rgba(23,74,58,0.12);--font:'DM Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;--radius-sm:6px;--radius-md:10px;--radius-lg:12px;--radius-xl:16px;--transition:all 0.3s cubic-bezier(0.4,0,0.2,1)}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);font-size:16px;line-height:1.65;color:var(--m-text);background:var(--m-ivory);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+img{max-width:100%;height:auto;display:block}
+a{text-decoration:none;color:inherit;transition:var(--transition)}
+button{font-family:inherit;cursor:pointer;border:none;background:none;transition:var(--transition)}
+ul,ol{list-style:none}
+.skip-link{position:absolute;top:-40px;left:0;background:var(--m-forest);color:var(--m-white);padding:8px 16px;z-index:10000;font-size:14px;font-weight:500}
+.skip-link:focus{top:0}
+.header{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(247,242,232,0.96);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--m-border-light);transition:var(--transition)}
+.header.scrolled{box-shadow:0 2px 24px var(--m-shadow);background:rgba(247,242,232,0.98)}
+.header-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:76px;padding:0 28px}
+.logo{font-size:26px;font-weight:600;color:var(--m-forest);letter-spacing:-0.5px;display:flex;align-items:center;gap:6px}
+.logo-dot{color:var(--m-gold)}
+.logo-tagline{font-size:10px;font-weight:500;color:var(--m-text-muted);letter-spacing:1.5px;text-transform:uppercase;margin-left:10px;padding-left:10px;border-left:1.5px solid var(--m-sand)}
+.nav{display:flex;align-items:center;gap:2px}
+.nav-link{padding:8px 14px;font-size:14px;font-weight:500;color:var(--m-text-secondary);border-radius:var(--radius-md);position:relative}
+.nav-link:hover,.nav-link.active{color:var(--m-forest);background:rgba(23,74,58,0.06)}
+.nav-link::after{content:'';position:absolute;bottom:3px;left:50%;transform:translateX(-50%);width:0;height:2px;background:var(--m-gold);border-radius:2px;transition:var(--transition)}
+.nav-link:hover::after,.nav-link.active::after{width:18px}
+.nav-cta{background:var(--m-terracotta);color:var(--m-white)!important;padding:10px 22px!important;border-radius:var(--radius-md);font-weight:600;margin-left:10px}
+.nav-cta:hover{background:var(--m-terracotta-dark)}
+.nav-cta::after{display:none!important}
+.dropdown{position:relative}
+.dropdown-menu{position:absolute;top:calc(100% + 10px);left:0;background:var(--m-white);border:1px solid var(--m-border);border-radius:var(--radius-lg);box-shadow:0 12px 40px rgba(23,74,58,0.1);padding:8px 0;min-width:240px;opacity:0;visibility:hidden;transform:translateY(-6px);transition:var(--transition);z-index:1001}
+.dropdown.open .dropdown-menu,.dropdown:hover .dropdown-menu{opacity:1;visibility:visible;transform:translateY(0)}
+.dropdown-item{display:block;padding:10px 20px;font-size:14px;color:var(--m-text-secondary);white-space:nowrap}
+.dropdown-item:hover{background:var(--m-ivory);color:var(--m-forest)}
+.dropdown-item strong{color:var(--m-text);font-weight:500;display:block;margin-bottom:2px}
+.dropdown-item span{font-size:12px;color:var(--m-text-muted)}
+.dropdown-toggle{display:inline-flex;align-items:center;gap:4px}
+.dropdown-toggle svg{width:14px;height:14px;transition:transform 0.2s ease}
+.dropdown.open .dropdown-toggle svg{transform:rotate(180deg)}
+.mobile-toggle{display:none;width:44px;height:44px;align-items:center;justify-content:center;border-radius:var(--radius-md);color:var(--m-forest)}
+.mobile-toggle:hover{background:rgba(23,74,58,0.06)}
+.mobile-toggle svg{width:24px;height:24px}
+.hero{position:relative;min-height:100vh;background:linear-gradient(160deg,var(--m-forest) 0%,var(--m-forest-dark) 50%,#0a231b 100%);color:var(--m-white);display:flex;align-items:center;overflow:hidden;padding-top:76px}
+.hero::before{content:'';position:absolute;top:-20%;right:-15%;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(201,162,74,0.07) 0%,transparent 65%)}
+.hero::after{content:'';position:absolute;bottom:-25%;left:-15%;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(143,175,154,0.06) 0%,transparent 65%)}
+.hero-inner{max-width:1280px;margin:0 auto;padding:0 28px;display:grid;grid-template-columns:1.1fr 0.9fr;gap:64px;align-items:center;position:relative;z-index:1;width:100%}
+.hero-label{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--m-gold);margin-bottom:24px}
+.hero-label::before{content:'';width:32px;height:2px;background:var(--m-gold);border-radius:2px}
+.hero h1{font-size:clamp(36px,5vw,64px);font-weight:600;line-height:1.08;letter-spacing:-1.5px;margin-bottom:24px}
+.hero h1 em{font-style:normal;color:var(--m-gold)}
+.hero-desc{font-size:18px;line-height:1.7;color:rgba(255,255,255,0.72);max-width:520px;margin-bottom:40px}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 28px;border-radius:var(--radius-md);font-size:15px;font-weight:600;transition:var(--transition)}
+.btn-primary{background:var(--m-gold);color:var(--m-charcoal)}
+.btn-primary:hover{background:var(--m-gold-light);transform:translateY(-2px);box-shadow:0 8px 28px rgba(201,162,74,0.35)}
+.btn-secondary{background:rgba(255,255,255,0.08);color:var(--m-white);border:1px solid rgba(255,255,255,0.18)}
+.btn-secondary:hover{background:rgba(255,255,255,0.15);border-color:rgba(255,255,255,0.3)}
+.hero-visual{position:relative;display:flex;align-items:center;justify-content:center}
+.hero-img-frame{width:100%;max-width:460px;aspect-ratio:3/4;border-radius:var(--radius-xl);overflow:hidden;position:relative;border:3px solid rgba(201,162,74,0.25);box-shadow:0 28px 80px rgba(0,0,0,0.35);background:linear-gradient(135deg,var(--m-forest-light) 0%,var(--m-forest-dark) 100%)}
+.hero-img-frame img{width:100%;height:100%;object-fit:cover;filter:brightness(0.88) saturate(0.92)}
+.hero-img-placeholder{width:100%;height:100%;display:none;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--m-forest-light) 0%,var(--m-forest-dark) 100%);color:rgba(255,255,255,0.3);font-size:14px}
+.hero-img-caption{position:absolute;bottom:0;left:0;right:0;padding:48px 24px 22px;background:linear-gradient(transparent,rgba(10,35,27,0.85));font-size:13px;color:rgba(255,255,255,0.75)}
+.hero-img-caption strong{color:var(--m-gold);display:block;font-size:14px;font-weight:600;margin-bottom:3px}
+.hero-badge{position:absolute;top:24px;right:-16px;background:var(--m-gold);color:var(--m-charcoal);padding:12px 20px;border-radius:var(--radius-lg);font-size:13px;font-weight:600;box-shadow:0 4px 16px rgba(201,162,74,0.35);transform:rotate(3deg)}
+.scroll-indicator{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:rgba(255,255,255,0.4);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;animation:bounce 2.5s infinite;cursor:pointer;background:none;border:none;padding:10px}
+.scroll-indicator:hover{color:rgba(255,255,255,0.7)}
+.scroll-indicator svg{width:18px;height:18px}
+@keyframes bounce{0%,20%,50%,80%,100%{transform:translateX(-50%) translateY(0)}40%{transform:translateX(-50%) translateY(-10px)}60%{transform:translateX(-50%) translateY(-5px)}}
+.urgency{background:var(--m-white);border-bottom:1px solid var(--m-border-light);padding:48px 28px}
+.urgency-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:48px}
+.urgency-stat{text-align:center;position:relative}
+.urgency-stat:not(:last-child)::after{content:'';position:absolute;right:-24px;top:50%;transform:translateY(-50%);width:1px;height:60px;background:var(--m-border)}
+.urgency-num{font-size:clamp(36px,4vw,52px);font-weight:600;color:var(--m-terracotta);line-height:1;font-variant-numeric:tabular-nums}
+.urgency-label{font-size:15px;color:var(--m-text-secondary);margin-top:12px;line-height:1.5;max-width:280px;margin-left:auto;margin-right:auto}
+.urgency-cta{grid-column:1 / -1;text-align:center;margin-top:20px}
+.urgency-cta a{color:var(--m-forest);font-weight:600;font-size:15px;display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:var(--radius-md);border:1.5px solid var(--m-forest)}
+.urgency-cta a:hover{background:var(--m-forest);color:var(--m-white)}
+.section{padding:96px 28px}
+.section-alt{background:var(--m-white)}
+.section-ivory{background:var(--m-ivory)}
+.container{max-width:1280px;margin:0 auto}
+.section-header{margin-bottom:64px}
+.section-header.center{text-align:center}
+.section-header.center .section-sub{margin-left:auto;margin-right:auto}
+.section-label{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--m-gold);margin-bottom:18px}
+.section-label::before{content:'';width:28px;height:2px;background:var(--m-gold);border-radius:2px}
+.section-title{font-size:clamp(30px,3.5vw,44px);font-weight:600;line-height:1.12;letter-spacing:-0.8px;margin-bottom:18px;color:var(--m-charcoal)}
+.section-sub{font-size:17px;color:var(--m-text-secondary);line-height:1.7;max-width:640px}
+.cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.card{background:var(--m-white);border:1px solid var(--m-border);border-radius:var(--radius-lg);padding:36px 32px;transition:var(--transition);cursor:pointer;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--m-gold);transform:scaleX(0);transition:var(--transition)}
+.card:hover{transform:translateY(-5px);box-shadow:0 16px 48px var(--m-shadow-hover);border-color:var(--m-sand)}
+.card:hover::before{transform:scaleX(1)}
+.card-icon{width:56px;height:56px;border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;margin-bottom:22px}
+.card-icon svg{width:26px;height:26px}
+.card h3{font-size:20px;font-weight:600;margin-bottom:10px;color:var(--m-charcoal)}
+.card p{font-size:15px;color:var(--m-text-secondary);line-height:1.65;margin-bottom:22px}
+.card-link{font-size:14px;font-weight:600;color:var(--m-forest);display:inline-flex;align-items:center;gap:6px}
+.card-link svg{width:16px;height:16px;transition:var(--transition)}
+.card:hover .card-link svg{transform:translateX(5px)}
+.impact-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.impact-item{text-align:center;padding:36px 28px;background:var(--m-ivory);border-radius:var(--radius-lg);border:1px solid var(--m-border-light);transition:var(--transition)}
+.impact-item:hover{border-color:var(--m-gold);box-shadow:0 8px 28px var(--m-shadow);background:var(--m-white)}
+.impact-num{font-size:clamp(34px,3vw,46px);font-weight:600;color:var(--m-forest);line-height:1;font-variant-numeric:tabular-nums}
+.impact-label{font-size:15px;color:var(--m-text-secondary);margin-top:10px}
+.impact-icon{width:52px;height:52px;border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;margin:0 auto 18px}
+.impact-icon svg{width:24px;height:24px}
+.programme-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+.programme-card{display:grid;grid-template-columns:88px 1fr;gap:28px;background:var(--m-white);border:1px solid var(--m-border);border-radius:var(--radius-lg);padding:36px;transition:var(--transition)}
+.programme-card:hover{border-color:var(--m-sage);box-shadow:0 12px 36px var(--m-shadow)}
+.programme-icon{width:68px;height:68px;border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center}
+.programme-icon svg{width:30px;height:30px}
+.programme-content h3{font-size:19px;font-weight:600;margin-bottom:8px;color:var(--m-charcoal)}
+.programme-content p{font-size:14px;color:var(--m-text-secondary);line-height:1.65;margin-bottom:16px}
+.programme-meta{display:flex;gap:20px;font-size:13px;color:var(--m-text-muted)}
+.programme-meta span{display:flex;align-items:center;gap:5px}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.testi{background:var(--m-white);border:1px solid var(--m-border);border-radius:var(--radius-lg);padding:40px;transition:var(--transition);position:relative}
+.testi:hover{box-shadow:0 12px 36px var(--m-shadow)}
+.testi::before{content:'"';position:absolute;top:16px;right:28px;font-size:90px;font-weight:600;color:var(--m-gold);opacity:0.12;line-height:1;font-family:Georgia,serif}
+.testi-quote{font-size:16px;line-height:1.8;color:var(--m-charcoal);margin-bottom:28px;position:relative;z-index:1}
+.testi-author{display:flex;align-items:center;gap:14px}
+.testi-avatar{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--m-white);font-size:15px;font-weight:600;flex-shrink:0}
+.testi-name{font-size:15px;font-weight:600;color:var(--m-charcoal)}
+.testi-role{font-size:13px;color:var(--m-text-muted);margin-top:2px}
+.news-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px}
+.news-card{background:var(--m-white);border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--m-border);transition:var(--transition)}
+.news-card:hover{box-shadow:0 16px 48px var(--m-shadow-hover);transform:translateY(-4px)}
+.news-img{height:210px;background:linear-gradient(135deg,var(--m-sage) 0%,var(--m-forest) 100%);position:relative;overflow:hidden}
+.news-img::after{content:'';position:absolute;inset:0;background:linear-gradient(transparent 50%,rgba(10,35,27,0.35))}
+.news-tag{position:absolute;top:18px;left:18px;background:var(--m-gold);color:var(--m-charcoal);padding:5px 14px;border-radius:20px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;z-index:1}
+.news-body{padding:28px}
+.news-date{font-size:12px;color:var(--m-text-muted);margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.news-card h3{font-size:18px;font-weight:600;line-height:1.4;margin-bottom:10px;color:var(--m-charcoal)}
+.news-card h3:hover{color:var(--m-forest)}
+.news-excerpt{font-size:14px;color:var(--m-text-secondary);line-height:1.65}
+.partners{background:var(--m-white);padding:64px 28px;border-top:1px solid var(--m-border-light);border-bottom:1px solid var(--m-border-light)}
+.partners-inner{max-width:1280px;margin:0 auto;text-align:center}
+.partners p{font-size:12px;color:var(--m-text-muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:36px;font-weight:500}
+.partner-logos{display:flex;justify-content:center;align-items:center;gap:52px;flex-wrap:wrap}
+.partner-logo{font-size:17px;font-weight:600;color:var(--m-text-muted);letter-spacing:-0.3px;opacity:0.55;transition:var(--transition)}
+.partner-logo:hover{opacity:1;color:var(--m-forest)}
+.cta-band{background:linear-gradient(160deg,var(--m-forest) 0%,var(--m-forest-dark) 60%,#0a231b 100%);color:var(--m-white);text-align:center;padding:110px 28px;position:relative;overflow:hidden}
+.cta-band::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(201,162,74,0.07) 0%,transparent 55%)}
+.cta-band-inner{position:relative;z-index:1;max-width:720px;margin:0 auto}
+.cta-band h2{font-size:clamp(30px,3.5vw,42px);font-weight:600;margin-bottom:18px;line-height:1.15}
+.cta-band p{font-size:17px;color:rgba(255,255,255,0.68);margin-bottom:44px;line-height:1.7}
+.cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.footer{background:var(--m-charcoal);color:rgba(255,255,255,0.58);padding:72px 28px 0}
+.footer-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1.5fr;gap:44px}
+.footer-brand{font-size:24px;font-weight:600;color:var(--m-white);margin-bottom:14px}
+.footer-brand span{color:var(--m-gold)}
+.footer-desc{font-size:14px;line-height:1.7;margin-bottom:24px;max-width:320px;color:rgba(255,255,255,0.5)}
+.footer-social{display:flex;gap:10px}
+.footer-social a{width:42px;height:42px;border-radius:var(--radius-md);background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.5);transition:var(--transition)}
+.footer-social a:hover{background:var(--m-gold);color:var(--m-charcoal)}
+.footer-social svg{width:18px;height:18px}
+.footer-col h4{font-size:14px;font-weight:600;color:var(--m-white);margin-bottom:22px;letter-spacing:0.5px}
+.footer-col a{display:block;font-size:14px;color:rgba(255,255,255,0.48);margin-bottom:12px;transition:var(--transition)}
+.footer-col a:hover{color:var(--m-gold)}
+.footer-newsletter h4{margin-bottom:12px}
+.footer-newsletter p{font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:18px}
+.newsletter-form{display:flex;gap:0}
+.newsletter-form input{flex:1;padding:12px 16px;border:1px solid rgba(255,255,255,0.12);border-radius:var(--radius-md) 0 0 var(--radius-md);background:rgba(255,255,255,0.04);color:var(--m-white);font-size:14px;outline:none}
+.newsletter-form input::placeholder{color:rgba(255,255,255,0.28)}
+.newsletter-form input:focus{border-color:var(--m-gold)}
+.newsletter-form button{padding:12px 22px;background:var(--m-gold);color:var(--m-charcoal);border-radius:0 var(--radius-md) var(--radius-md) 0;font-weight:600;font-size:14px}
+.newsletter-form button:hover{background:var(--m-gold-light)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.06);margin-top:52px;padding:24px 0;text-align:center;font-size:13px;color:rgba(255,255,255,0.3)}
+.footer-bottom a{color:rgba(255,255,255,0.4);margin:0 14px}
+.footer-bottom a:hover{color:var(--m-gold)}
+.mobile-menu{position:fixed;inset:0;z-index:2000;background:var(--m-ivory);transform:translateX(100%);transition:transform 0.35s cubic-bezier(0.4,0,0.2,1);overflow-y:auto}
+.mobile-menu.open{transform:translateX(0)}
+.mobile-menu-header{display:flex;align-items:center;justify-content:space-between;padding:20px 28px;border-bottom:1px solid var(--m-border-light)}
+.mobile-menu-header .logo{font-size:22px}
+.mobile-close{width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:var(--radius-md);color:var(--m-forest)}
+.mobile-close:hover{background:rgba(23,74,58,0.06)}
+.mobile-close svg{width:24px;height:24px}
+.mobile-nav{padding:16px 0}
+.mobile-nav a{display:block;padding:16px 28px;font-size:17px;font-weight:500;color:var(--m-charcoal);border-bottom:1px solid var(--m-border-light)}
+.mobile-nav a:hover{background:rgba(23,74,58,0.04);color:var(--m-forest)}
+.mobile-nav .mobile-cta{margin:24px 28px;display:block;text-align:center;background:var(--m-terracotta);color:var(--m-white);padding:16px;border-radius:var(--radius-md);font-weight:600;font-size:16px}
+.fade-in{opacity:0;transform:translateY(28px);transition:opacity 0.7s ease,transform 0.7s ease}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+@media(max-width:1024px){.hero-inner{grid-template-columns:1fr;text-align:center;gap:48px}.hero-desc{margin-left:auto;margin-right:auto}.hero-btns{justify-content:center}.hero-visual{order:-1}.hero-img-frame{max-width:340px;margin:0 auto}.hero-badge{right:10px}.cards-grid{grid-template-columns:repeat(2,1fr)}.impact-grid{grid-template-columns:repeat(2,1fr)}.footer-inner{grid-template-columns:repeat(2,1fr)}.urgency-stat:not(:last-child)::after{display:none}}
+@media(max-width:768px){.nav{display:none}.mobile-toggle{display:flex}.hero h1{font-size:34px}.hero-desc{font-size:16px}.urgency-inner{grid-template-columns:1fr;gap:32px}.cards-grid{grid-template-columns:1fr}.impact-grid{grid-template-columns:1fr 1fr}.testi-grid{grid-template-columns:1fr}.programme-grid{grid-template-columns:1fr}.programme-card{grid-template-columns:1fr;text-align:center}.programme-icon{margin:0 auto}.news-grid{grid-template-columns:1fr}.footer-inner{grid-template-columns:1fr;gap:36px}.section{padding:72px 20px}.cta-band{padding:72px 20px}.header-inner{padding:0 20px;height:68px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<header class="header" id="header">
+  <div class="header-inner">
+    <a href="#home" class="logo">Merabu<span class="logo-dot">.</span><span class="logo-tagline">Foundation</span></a>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="#home" class="nav-link active">Home</a>
+      <div class="dropdown" id="dropdown-about">
+        <a href="#about" class="nav-link dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+          About
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+        </a>
+        <div class="dropdown-menu" role="menu">
+          <a href="#" class="dropdown-item" role="menuitem"><strong>Our Story</strong><span>How Merabu began</span></a>
+          <a href="#" class="dropdown-item" role="menuitem"><strong>Leadership</strong><span>Board & executive team</span></a>
+          <a href="#" class="dropdown-item" role="menuitem"><strong>Annual Reports</strong><span>Financial transparency</span></a>
+          <a href="#" class="dropdown-item" role="menuitem"><strong>Careers</strong><span>Join our team</span></a>
+        </div>
+      </div>
+      <div class="dropdown" id="dropdown-programmes">
+        <a href="#programmes" class="nav-link dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+          Programmes
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+        </a>
+        <div class="dropdown-menu" role="menu">
+          <a href="#" class="dropdown-item" role="menuitem"><strong>Legal Aid & Justice</strong><span>Free legal support for elders</span></a>
+          <a href="#" class="dropdown-item" role="menuitem"><strong>Health & Wellness</strong><span>Mobile clinics & screenings</span></a>
+          <a href="#" class="dropdown-item" role="menuitem"><strong>Livelihoods</strong><span>Economic security programmes</span></a>
+          <a href="#" class="dropdown-item" role="menuitem"><strong>Residential Care</strong><span>Dignified care facilities</span></a>
+        </div>
+      </div>
+      <a href="#research" class="nav-link">Research</a>
+      <a href="#justice" class="nav-link">Elder Justice</a>
+      <a href="#library" class="nav-link">Living Library</a>
+      <a href="#innovation" class="nav-link">Innovation</a>
+      <a href="#donate" class="nav-link nav-cta">Donate</a>
+    </nav>
+    <button class="mobile-toggle" id="mobileToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+    </button>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Mobile navigation">
+  <div class="mobile-menu-header">
+    <a href="#home" class="logo">Merabu<span class="logo-dot">.</span></a>
+    <button class="mobile-close" id="mobileClose" aria-label="Close menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <nav class="mobile-nav">
+    <a href="#home" class="mobile-nav-link">Home</a>
+    <a href="#about" class="mobile-nav-link">About</a>
+    <a href="#programmes" class="mobile-nav-link">Programmes</a>
+    <a href="#research" class="mobile-nav-link">Research</a>
+    <a href="#justice" class="mobile-nav-link">Elder Justice Watch</a>
+    <a href="#library" class="mobile-nav-link">Living Library</a>
+    <a href="#innovation" class="mobile-nav-link">Innovation & AI</a>
+    <a href="#news" class="mobile-nav-link">News</a>
+    <a href="#contact" class="mobile-nav-link">Contact</a>
+    <a href="#donate" class="mobile-cta">Donate Now</a>
+  </nav>
+</div>
+
+<section class="hero" id="home">
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-label">Merabu Foundation</div>
+      <h1>Growing older should <em>never</em> mean becoming invisible.</h1>
+      <p class="hero-desc">We advance the rights, dignity, and wellbeing of older persons across Uganda — and inspire a continent to reimagine ageing through justice, research, and innovation.</p>
+      <div class="hero-btns">
+        <a href="#programmes" class="btn btn-primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          Explore Our Work
+        </a>
+        <a href="#donate" class="btn btn-secondary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+          Donate Now
+        </a>
+        <a href="#help" class="btn btn-secondary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><circle cx="12" cy="17" r=".5"/></svg>
+          Get Help
+        </a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-img-frame">
+        <img src="https://images.unsplash.com/photo-1581579438747-1dc8d17bbce4?w=600&h=800&fit=crop&q=80" alt="An older African woman smiling while using her smartphone, representing digital inclusion and dignified ageing" loading="eager" onerror="this.style.display='none'; this.parentElement.querySelector('.hero-img-placeholder').style.display='flex';">
+        <div class="hero-img-placeholder" style="display:none;position:absolute;inset:0;">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.4"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        </div>
+        <div class="hero-img-caption">
+          <strong>Grace Akello</strong>
+          Digital Skills Graduate, Gulu District — embracing technology at 68
+        </div>
+      </div>
+      <div class="hero-badge">45,000+ elders reached</div>
+    </div>
+  </div>
+  <button class="scroll-indicator" id="scrollIndicator" aria-label="Scroll to explore">
+    <span>Scroll to explore</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
+  </button>
+</section>
+
+<section class="urgency" aria-label="Key statistics">
+  <div class="urgency-inner">
+    <div class="urgency-stat">
+      <div class="urgency-num" data-target="1700000" data-suffix="+">0</div>
+      <div class="urgency-label">Older persons in Uganda lack basic social protection</div>
+    </div>
+    <div class="urgency-stat">
+      <div class="urgency-num" data-target="3" data-suffix="%">0</div>
+      <div class="urgency-label">Of older Ugandans have formal pension coverage</div>
+    </div>
+    <div class="urgency-stat">
+      <div class="urgency-num" data-target="40" data-suffix="%">0</div>
+      <div class="urgency-label">Rise in elder abuse cases reported since 2020</div>
+    </div>
+    <div class="urgency-cta">
+      <a href="#">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+        Read the 2025 Annual Elder Rights Report
+      </a>
+    </div>
+  </div>
+</section>
+
+<main id="main-content">
+
+<section class="section section-ivory" id="initiatives">
+  <div class="container">
+    <div class="section-header center">
+      <div class="section-label">Flagship Initiatives</div>
+      <h2 class="section-title">Six pillars transforming how Africa understands ageing</h2>
+      <p class="section-sub">From oral histories to AI-powered care, Merabu is building the infrastructure of dignity for older persons across Uganda and beyond.</p>
+    </div>
+    <div class="cards-grid">
+      <article class="card fade-in">
+        <div class="card-icon" style="background:rgba(201,162,74,0.1)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#C9A24A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        </div>
+        <h3>Living Library</h3>
+        <p>Every elder is a library. We capture oral histories before they are lost — stories of resilience, wisdom, and Uganda's living memory, preserved for generations.</p>
+        <a href="#library" class="card-link">Explore stories <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+      </article>
+      <article class="card fade-in">
+        <div class="card-icon" style="background:rgba(184,92,56,0.1)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#B85C38" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3>Elder Justice Watch</h3>
+        <p>Real-time data, real accountability. Tracking elder rights violations across Uganda and building the evidence base for policy change and legal action.</p>
+        <a href="#justice" class="card-link">View dashboard <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+      </article>
+      <article class="card fade-in">
+        <div class="card-icon" style="background:rgba(23,74,58,0.08)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#174A3A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+        </div>
+        <h3>Merabu Research Centre</h3>
+        <p>Evidence that drives policy. Africa-led research on ageing, health, economic security, and age-friendly environments generating world-class scholarship.</p>
+        <a href="#research" class="card-link">Browse research <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+      </article>
+      <article class="card fade-in">
+        <div class="card-icon" style="background:rgba(143,175,154,0.15)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#8FAF9A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1.66 4 3 6 3s6-1.34 6-3v-5"/></svg>
+        </div>
+        <h3>Merabu Academy</h3>
+        <p>Training the next generation of elder care professionals, advocates, and researchers. Building capacity where it matters most across Uganda.</p>
+        <a href="#" class="card-link">View courses <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+      </article>
+      <article class="card fade-in">
+        <div class="card-icon" style="background:rgba(220,205,181,0.4)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#8B7B5E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <h3>AI for Ageing</h3>
+        <p>Technology built with elders, not just for them. Co-designing digital solutions that respect dignity, autonomy, and lived experience.</p>
+        <a href="#innovation" class="card-link">See innovations <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+      </article>
+      <article class="card fade-in">
+        <div class="card-icon" style="background:rgba(201,162,74,0.1)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#C9A24A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3>Adopt a Grandparent</h3>
+        <p>Connection across generations. Sponsor wellbeing, not charity. Build meaningful relationships that honour dignity and mutual respect.</p>
+        <a href="#" class="card-link">Meet elders <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt" id="impact">
+  <div class="container">
+    <div class="section-header center">
+      <div class="section-label">Our Movement in Numbers</div>
+      <h2 class="section-title">Real impact. Real people. Real change.</h2>
+      <p class="section-sub">Every number represents a life dignified, a right defended, or a community transformed.</p>
+    </div>
+    <div class="impact-grid">
+      <div class="impact-item fade-in">
+        <div class="impact-icon" style="background:rgba(23,74,58,0.08)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#174A3A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div class="impact-num" data-target="45000">0</div>
+        <div class="impact-label">Older persons reached</div>
+      </div>
+      <div class="impact-item fade-in">
+        <div class="impact-icon" style="background:rgba(184,92,56,0.1)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#B85C38" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="impact-num" data-target="2400">0</div>
+        <div class="impact-label">Legal cases resolved</div>
+      </div>
+      <div class="impact-item fade-in">
+        <div class="impact-icon" style="background:rgba(143,175,154,0.15)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#8FAF9A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+        </div>
+        <div class="impact-num" data-target="12">0</div>
+        <div class="impact-label">Policies influenced</div>
+      </div>
+      <div class="impact-item fade-in">
+        <div class="impact-icon" style="background:rgba(201,162,74,0.1)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#C9A24A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <div class="impact-num" data-target="200">0</div>
+        <div class="impact-label">Communities engaged</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-ivory" id="programmes">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">What We Do</div>
+      <h2 class="section-title">Programmes built on dignity, not pity</h2>
+      <p class="section-sub">From legal aid to livelihoods, every programme is designed with older persons as active participants and rights-holders, not passive recipients.</p>
+    </div>
+    <div class="programme-grid">
+      <article class="programme-card fade-in">
+        <div class="programme-icon" style="background:rgba(184,92,56,0.1)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#B85C38" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="programme-content">
+          <h3>Legal Aid & Elder Justice</h3>
+          <p>Free legal clinics, court representation, and rights education ensuring older persons can access justice when their rights are violated.</p>
+          <div class="programme-meta">
+            <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> 2,400+ cases resolved</span>
+            <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 18 clinics nationwide</span>
+          </div>
+        </div>
+      </article>
+      <article class="programme-card fade-in">
+        <div class="programme-icon" style="background:rgba(143,175,154,0.15)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#8FAF9A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        </div>
+        <div class="programme-content">
+          <h3>Health & Wellness</h3>
+          <p>Mobile clinics, health screenings, NCD management, and mental health support tailored to the specific needs of older persons.</p>
+          <div class="programme-meta">
+            <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> 25,000+ screenings</span>
+            <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 45 mobile units</span>
+          </div>
+        </div>
+      </article>
+      <article class="programme-card fade-in">
+        <div class="programme-icon" style="background:rgba(201,162,74,0.1)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#C9A24A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <div class="programme-content">
+          <h3>Livelihoods & Economic Security</h3>
+          <p>SAGE advocacy, micro-enterprises, agricultural support, and financial literacy ensuring older persons have sustainable income.</p>
+          <div class="programme-meta">
+            <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> 15,000+ elders supported</span>
+            <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 8 districts</span>
+          </div>
+        </div>
+      </article>
+      <article class="programme-card fade-in">
+        <div class="programme-icon" style="background:rgba(23,74,58,0.08)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#174A3A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <div class="programme-content">
+          <h3>Residential & Home-Based Care</h3>
+          <p>Dignified residential facilities and trained home-based caregivers providing quality care for older persons with high support needs.</p>
+          <div class="programme-meta">
+            <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> 500+ in care programmes</span>
+            <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 3 residential homes</span>
+          </div>
+        </div>
+      </article>
+      <article class="programme-card fade-in">
+        <div class="programme-icon" style="background:rgba(220,205,181,0.4)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#8B7B5E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+        </div>
+        <div class="programme-content">
+          <h3>Advocacy & Policy Reform</h3>
+          <p>Parliamentary engagement, policy briefs, and coalition building to reform laws and systems that protect older persons' rights.</p>
+          <div class="programme-meta">
+            <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> 12 policies influenced</span>
+            <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 5 coalitions</span>
+          </div>
+        </div>
+      </article>
+      <article class="programme-card fade-in">
+        <div class="programme-icon" style="background:rgba(143,175,154,0.15)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#8FAF9A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div class="programme-content">
+          <h3>Community Engagement</h3>
+          <p>Intergenerational programmes, elder councils, and volunteer networks building age-friendly communities across Uganda.</p>
+          <div class="programme-meta">
+            <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> 200+ communities</span>
+            <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 1,200+ volunteers</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt" id="testimonials">
+  <div class="container">
+    <div class="section-header center">
+      <div class="section-label">Voices of Dignity</div>
+      <h2 class="section-title">What older persons, partners, and communities say</h2>
+      <p class="section-sub">These are not stories of charity. They are testimonies of agency, justice, and transformation.</p>
+    </div>
+    <div class="testi-grid">
+      <article class="testi fade-in">
+        <p class="testi-quote">"Merabu didn't give me pity. They gave me a voice. At 72, I testified before Parliament for the first time in my life. They listened because Merabu stood beside me."</p>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:var(--m-forest)">SN</div>
+          <div>
+            <div class="testi-name">Sarah Nalwoga</div>
+            <div class="testi-role">Community Elder, Mukono District</div>
+          </div>
+        </div>
+      </article>
+      <article class="testi fade-in">
+        <p class="testi-quote">"Merabu's research changed how we draft social protection policy. Their data is rigorous, their recommendations are actionable, and their community connections are unmatched."</p>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:var(--m-sage)">DK</div>
+          <div>
+            <div class="testi-name">Dr. David Kigozi</div>
+            <div class="testi-role">Ministry of Gender, Labour & Social Development</div>
+          </div>
+        </div>
+      </article>
+      <article class="testi fade-in">
+        <p class="testi-quote">"This is the most credible ageing organization on the continent. Every dollar we invest goes to programmes with measurable outcomes and genuine community ownership."</p>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:var(--m-gold);color:var(--m-charcoal)">JM</div>
+          <div>
+            <div class="testi-name">James Mwangi</div>
+            <div class="testi-role">Programme Director, African Development Foundation</div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section section-ivory" id="news">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">Latest News</div>
+      <h2 class="section-title">Stories from the movement</h2>
+      <p class="section-sub">Policy updates, research findings, community victories, and voices from across Uganda.</p>
+    </div>
+    <div class="news-grid">
+      <article class="news-card fade-in">
+        <div class="news-img">
+          <span class="news-tag">Policy</span>
+        </div>
+        <div class="news-body">
+          <div class="news-date">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            15 August 2026
+          </div>
+          <h3>Parliament Passes Landmark Elder Rights Bill Following Merabu Advocacy</h3>
+          <p class="news-excerpt">After three years of sustained advocacy, the Elder Persons Protection Bill has passed its third reading with unanimous support.</p>
+        </div>
+      </article>
+      <article class="news-card fade-in">
+        <div class="news-img" style="background:linear-gradient(135deg,#8FAF9A 0%,#6e8f7a 100%)">
+          <span class="news-tag">Research</span>
+        </div>
+        <div class="news-body">
+          <div class="news-date">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            8 August 2026
+          </div>
+          <h3>Uganda Ageing Index 2026: New Data Reveals Stark Regional Disparities</h3>
+          <p class="news-excerpt">The Merabu Research Centre publishes the most comprehensive dataset on ageing in Uganda to date, covering all 146 districts.</p>
+        </div>
+      </article>
+      <article class="news-card fade-in">
+        <div class="news-img" style="background:linear-gradient(135deg,#B85C38 0%,#9a4a2b 100%)">
+          <span class="news-tag">Community</span>
+        </div>
+        <div class="news-body">
+          <div class="news-date">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            1 August 2026
+          </div>
+          <h3>Grandmother in Gulu Wins Back Land After 12-Year Legal Battle</h3>
+          <p class="news-excerpt">With support from Merabu's Legal Aid programme, Akello Grace has finally secured title to the land her family tried to seize.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="partners">
+  <div class="partners-inner">
+    <p>Trusted by leading organisations across Africa and beyond</p>
+    <div class="partner-logos">
+      <span class="partner-logo">UNFPA</span>
+      <span class="partner-logo">HelpAge</span>
+      <span class="partner-logo">UNDP</span>
+      <span class="partner-logo">Makerere</span>
+      <span class="partner-logo">Sida</span>
+      <span class="partner-logo">EU Delegation</span>
+      <span class="partner-logo">GIZ</span>
+      <span class="partner-logo">DFID</span>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band" id="donate">
+  <div class="cta-band-inner">
+    <h2>You can help transform ageing in Africa.</h2>
+    <p>Join a movement that sees older persons as citizens, knowledge holders, and rights-holders — not objects of pity. Every contribution builds dignity.</p>
+    <div class="cta-btns">
+      <a href="#" class="btn btn-primary">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+        Donate Now
+      </a>
+      <a href="#" class="btn btn-secondary">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Volunteer
+      </a>
+      <a href="#" class="btn btn-secondary">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+        Partner With Us
+      </a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer" id="contact">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">Merabu<span>.</span></div>
+      <p class="footer-desc">Advancing the rights, dignity, and wellbeing of older persons in Uganda. Building a movement for justice, research, and innovation in ageing across Africa.</p>
+      <div class="footer-social">
+        <a href="#" aria-label="Twitter"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+        <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+        <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Organisation</h4>
+      <a href="#">About Us</a>
+      <a href="#">Our Vision</a>
+      <a href="#">Leadership</a>
+      <a href="#">Annual Reports</a>
+      <a href="#">Careers</a>
+    </div>
+    <div class="footer-col">
+      <h4>Programmes</h4>
+      <a href="#">Legal Aid</a>
+      <a href="#">Health & Wellness</a>
+      <a href="#">Livelihoods</a>
+      <a href="#">Residential Care</a>
+      <a href="#">Advocacy</a>
+    </div>
+    <div class="footer-col">
+      <h4>Resources</h4>
+      <a href="#">Research Centre</a>
+      <a href="#">Elder Justice Watch</a>
+      <a href="#">Living Library</a>
+      <a href="#">Publications</a>
+      <a href="#">Press Room</a>
+    </div>
+    <div class="footer-newsletter">
+      <h4>Stay Connected</h4>
+      <p>Get updates on our work, research, and opportunities to take action.</p>
+      <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Thank you for subscribing!');">
+        <input type="email" placeholder="Your email address" required aria-label="Email address">
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 Merabu Foundation. All rights reserved.</span>
+    <a href="#">Privacy Policy</a>
+    <a href="#">Terms of Use</a>
+    <a href="#">Accessibility</a>
+    <a href="#">Cookie Settings</a>
+  </div>
+</footer>
+<script>
+(function() {
+  "use strict";
+
+  // ===== MOBILE MENU =====
+  var mobileMenu = document.getElementById("mobileMenu");
+  var mobileToggle = document.getElementById("mobileToggle");
+  var mobileClose = document.getElementById("mobileClose");
+  var mobileNavLinks = document.querySelectorAll(".mobile-nav a");
+  var body = document.body;
+  var lastFocusedElement = null;
+
+  function openMobileMenu() {
+    lastFocusedElement = document.activeElement;
+    mobileMenu.classList.add("open");
+    body.style.overflow = "hidden";
+    mobileToggle.setAttribute("aria-expanded", "true");
+    setTimeout(function() {
+      var firstLink = mobileMenu.querySelector("a");
+      if (firstLink) firstLink.focus();
+    }, 100);
+  }
+
+  function closeMobileMenu() {
+    mobileMenu.classList.remove("open");
+    body.style.overflow = "";
+    mobileToggle.setAttribute("aria-expanded", "false");
+    if (lastFocusedElement) lastFocusedElement.focus();
+  }
+
+  if (mobileToggle) mobileToggle.addEventListener("click", openMobileMenu);
+  if (mobileClose) mobileClose.addEventListener("click", closeMobileMenu);
+  mobileNavLinks.forEach(function(link) {
+    link.addEventListener("click", function() {
+      closeMobileMenu();
+    });
+  });
+
+  document.addEventListener("keydown", function(e) {
+    if (e.key === "Escape" && mobileMenu.classList.contains("open")) {
+      closeMobileMenu();
+    }
+  });
+
+  mobileMenu.addEventListener("keydown", function(e) {
+    if (e.key !== "Tab") return;
+    var focusable = mobileMenu.querySelectorAll('a[href], button, input, textarea, select, [tabindex]:not([tabindex="-1"])');
+    if (focusable.length === 0) return;
+    var first = focusable[0];
+    var last = focusable[focusable.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  });
+
+  var header = document.getElementById("header");
+  function updateHeader() {
+    if (window.scrollY > 50) {
+      header.classList.add("scrolled");
+    } else {
+      header.classList.remove("scrolled");
+    }
+  }
+  window.addEventListener("scroll", updateHeader, { passive: true });
+  updateHeader();
+
+  var scrollIndicator = document.getElementById("scrollIndicator");
+  if (scrollIndicator) {
+    scrollIndicator.addEventListener("click", function() {
+      var urgency = document.querySelector(".urgency");
+      if (urgency) {
+        urgency.scrollIntoView({ behavior: "smooth" });
+      }
+    });
+  }
+
+  function animateCounter(el, target, suffix) {
+    var duration = 1500;
+    var start = null;
+    suffix = suffix || "";
+    function step(timestamp) {
+      if (!start) start = timestamp;
+      var progress = Math.min((timestamp - start) / duration, 1);
+      var eased = 1 - Math.pow(1 - progress, 4);
+      var current = Math.floor(eased * target);
+      if (target >= 1000) {
+        el.textContent = current.toLocaleString() + suffix;
+      } else {
+        el.textContent = current + suffix;
+      }
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      } else {
+        if (target >= 1000) {
+          el.textContent = target.toLocaleString() + suffix;
+        } else {
+          el.textContent = target + suffix;
+        }
+      }
+    }
+    requestAnimationFrame(step);
+  }
+
+  var counterObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        var el = entry.target;
+        var target = parseInt(el.dataset.target, 10);
+        var suffix = el.dataset.suffix || "";
+        animateCounter(el, target, suffix);
+        counterObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  document.querySelectorAll("[data-target]").forEach(function(el) {
+    counterObserver.observe(el);
+  });
+
+  var fadeObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        fadeObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll(".fade-in").forEach(function(el) {
+    fadeObserver.observe(el);
+  });
+
+  var sectionIds = ["home", "initiatives", "impact", "programmes", "testimonials", "news", "donate", "contact"];
+  var navLinks = document.querySelectorAll('.nav-link[href^="#"]');
+  var sections = sectionIds.map(function(id) {
+    return document.getElementById(id);
+  }).filter(Boolean);
+
+  function updateActiveNav() {
+    var scrollPos = window.scrollY + 120;
+    var current = "";
+    sections.forEach(function(section) {
+      if (section && scrollPos >= section.offsetTop) {
+        current = section.getAttribute("id");
+      }
+    });
+    navLinks.forEach(function(link) {
+      link.classList.remove("active");
+      var href = link.getAttribute("href");
+      if (href === "#" + current) {
+        link.classList.add("active");
+      }
+    });
+  }
+
+  window.addEventListener("scroll", updateActiveNav, { passive: true });
+  updateActiveNav();
+
+  var dropdowns = document.querySelectorAll(".dropdown");
+  dropdowns.forEach(function(dropdown) {
+    var toggle = dropdown.querySelector(".dropdown-toggle");
+    var menu = dropdown.querySelector(".dropdown-menu");
+    if (!toggle || !menu) return;
+
+    toggle.addEventListener("keydown", function(e) {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        dropdown.classList.toggle("open");
+        toggle.setAttribute("aria-expanded", dropdown.classList.contains("open"));
+        if (dropdown.classList.contains("open")) {
+          var firstItem = menu.querySelector(".dropdown-item");
+          if (firstItem) firstItem.focus();
+        }
+      }
+    });
+
+    document.addEventListener("click", function(e) {
+      if (!dropdown.contains(e.target)) {
+        dropdown.classList.remove("open");
+        toggle.setAttribute("aria-expanded", "false");
+      }
+    });
+  });
+
+  document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+    anchor.addEventListener("click", function(e) {
+      var href = this.getAttribute("href");
+      if (href === "#") return;
+      var target = document.querySelector(href);
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    });
+  });
+
+})();
+</script>
+
+</body>
+</html>
